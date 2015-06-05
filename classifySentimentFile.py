@@ -1,5 +1,7 @@
 def classifySentiment(words, happy_log_probs, sad_log_probs):
 
+    import numpy as np 
+    
     # Get the log-probability of each word under each sentiment
     happy_probs = [happy_log_probs[word] for word in words if word in happy_log_probs]
     sad_probs = [sad_log_probs[word] for word in words if word in sad_log_probs]

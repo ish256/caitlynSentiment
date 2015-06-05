@@ -14,8 +14,12 @@ t = oauthDance.login() #login to twitter api
 #search query constructed to collect popular tweets over a day using tweet unique ids ( first day )
 CallmeCaitlyn = t.search.tweets(q="CallmeCaitlyn popular since_id:605406096824647681 max_id:605627076637564928")
 #construct data frame to contain data 
-attribute_names = CallmeCaitlyn[1].keys()
-our_df = our_df.append( CallmeCaitlyn ) #might have to change the name to reflect the date!
+attribute_names = CallmeCaitlyn["statuses"][1].keys()
+
+our_df = pd.DataFrame( columns = attribute_names )
+
+
+our_df = our_df.append( CallmeCaitlyn["statuses"]) #might have to change the name to reflect the date!
 
 # #search query constructed to collect popular tweets over a day using tweet unique ids ( second day )
 # CallmeCaitlyn = t.search.tweets(q="CallmeCaitlyn popular since_id:605627076637564928 max_id:605949822198259713")
@@ -26,18 +30,13 @@ our_df = our_df.append( CallmeCaitlyn ) #might have to change the name to reflec
 # our_df = our_df.append( CallmeCaitlyn )
 
 
-
 ############################code for tokenization and classifying tweets in a given day##################
-
-#do tokenization per day 
-
 
 # We load in the list of words and their log probabilities
 happy_log_probs, sad_log_probs = sentList.readSentimentList('twitter_sentiment_list.csv')
 
-classificationLabels = ["negative" , "positive"]
-allTweetsInADayClassification =  pd.DataFrame(columns=classificationLabels)
-
+#classificationLabels = ["negative" , "positive"]
+#allTweetsInADayClassification =  pd.DataFrame(columns=classificationLabels)
 
 for i in range(0,our_df.shape[0]):	
     # Here we have tweets which we have already tokenized (turned into an array of words)
