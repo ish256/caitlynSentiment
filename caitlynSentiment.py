@@ -1,6 +1,5 @@
 import twitter
 import oauthDance
-import pprint
 import pandas as pd
 import readSentimentListFile as sentList
 import classifySentimentFile as sentClass
@@ -11,7 +10,7 @@ import classifySentimentFile as sentClass
 t = oauthDance.login() #login to twitter api 
 
 #search query constructed to collect popular tweets over a day using tweet unique ids ( first day )
-CallmeCaitlyn = t.search.tweets(q="CallmeCaitlyn popular since_id:605406096824647681 max_id:605627076637564928")
+CallmeCaitlyn = t.search.tweets(q="CallMeCaitlyn since_id:605406096824647681 max_id:605627076637564928")
 #construct data frame to contain data 
 attribute_names = CallmeCaitlyn["statuses"][1].keys()
 
@@ -38,10 +37,10 @@ with open( "CallmeCaitlyn.json", 'w') as textFile:  #remember to change file nam
 ############################     code for importing tweets from json files  (optional)   ##################
 
 # import json
-# reader = open("CallmeCaitlyn.json", "r")
-# our_data = json.load(reader)
-# print type(our_data)
-# #add to data frame from here! 
+reader = open("CallmeCaitlyn.json", "r")
+our_data = json.load(reader)
+print type(our_data)
+#add to data frame from here! 
 
 # attribute_names = our_data[1].keys()
 # our_df = pd.DataFrame(columns = attribute_names)
@@ -64,12 +63,12 @@ for i in range(0,our_df.shape[0]):
     print "The probability that tweet1 (", curTweet, ") is happy is ", happy_prob, "and the probability that it is sad is ", tweet1_sad_prob
 	#allTweetsInADay.extend( our_df['text'][i].split() )
 
-	if happy_prob >.5 :
-			positive = 1
-			negative = 0
-	else :
-			positive = 0
-			negative = 1
+	# if happy_prob >.5 :
+	# 	positive = 1
+	# 	negative = 0
+	# else :
+	# 	positive = 0
+	# 	negative = 1
 
 	#now create a new string that contains outcome and attach 
 	
